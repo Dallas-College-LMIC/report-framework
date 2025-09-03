@@ -1,5 +1,12 @@
 # Python Guidelines & Code Quality
 
+Remember the following software engineering principles:
+
+KISS - Keep it Simple, Stupid
+DRY - Don't Repeat Yourself
+YAGNI - You Aren't Gonna Need It
+
+
 ## Python Standards
 - Python 3.13+ required
 - Follow PEP 8 (enforced by ruff)
