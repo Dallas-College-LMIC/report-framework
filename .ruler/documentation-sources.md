@@ -4,11 +4,13 @@
 - **Lightcast API**: https://doc.lightcast.io
   - Primary documentation for Lightcast/Emsi APIs
   - Includes authentication, endpoints, and data schemas
+  - Useful for understanding how to write pyghtcast queries
 
 ## Project Dependencies (Git)
 - **pyghtcast**: https://github.com/Dallas-College-LMIC/pyghtcast
   - Python client for Lightcast APIs
   - Repository contains usage examples and API wrappers
+  - Contains a cli for data discovery, and a library that wraps the API for scripts
 
 - **censusdis-cli**: https://github.com/Dallas-College-LMIC/censusdis-cli
   - Command-line interface for Census data discovery
@@ -19,6 +21,12 @@
   - Internal tooling documentation in repository
 
 ## Standard Dependencies
-- **pandas**: https://pandas.pydata.org/docs/
+Use Context7 for all standard dependency documentation:
+
+- **pandas**: Use Context7 for pandas documentation
   - Data manipulation and analysis library
-  - Comprehensive API reference and user guide
+  - Context7 provides comprehensive API reference and user guide
+
+- **censusdis**: Use Context7 for censusdis documentation
+  - Census data discovery and retrieval library
+  - Context7 provides API documentation and usage patterns
