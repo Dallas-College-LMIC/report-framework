@@ -17,7 +17,6 @@ A Python-based data analysis framework for labor market research and reporting, 
 - [Nix](https://nixos.org/download.html) with flakes enabled
 - Lightcast API credentials (set as `LCAPI_USER` and `LCAPI_PASS` environment variables in a .env)
 - [direnv](https://direnv.net/)
-- [nix-direnv](https://github.com/nix-community/nix-direnv)
 
 ## Usage
 
