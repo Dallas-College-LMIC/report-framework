@@ -1,11 +1,11 @@
-# /rf:create-report-spec - Generate Data Specification from Stakeholder Request
+# /rf-create-report-spec - Generate Data Specification from Stakeholder Request
 
 ## Purpose
 Analyzes stakeholder request documents and generates comprehensive data specifications for report creation, using pyghtcast (Lightcast API) and censusdis-cli to intelligently identify relevant data sources and create structured queries.
 
 ## Usage
 ```
-/rf:create-report-spec <request_file_path>
+/rf-create-report-spec <request_file_path>
 ```
 
 **Parameters:**
