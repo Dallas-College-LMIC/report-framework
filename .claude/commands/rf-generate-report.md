@@ -27,8 +27,10 @@ When this command is invoked:
 2. **Intelligent Data Source Detection**
    - **Lightcast Sources**: Identify datasets like `emsi.us.occupation`, `emsi.us.industry`, `emsi.us.staffing`
    - **Census Sources**: Identify ACS table references, demographic variables, Census API calls
+     - Use context7 to understand how censusdis works
    - **Mixed Requirements**: Handle specifications requiring both data sources
    - Generate appropriate import statements and API setup code
+
 
 3. **Generate Purpose-Built Python Script**
    Create a simple, executable Python script with:

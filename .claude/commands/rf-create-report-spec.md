@@ -31,13 +31,10 @@ When this command is invoked:
      * Core success criteria ONLY
 
 2. **Intelligent Code Discovery**
-   - Use `pyghtcast discover datasets` to identify relevant Lightcast datasets
-   - Use `pyghtcast discover hierarchy` to find appropriate:
-     * SOC codes for occupations mentioned
-     * NAICS codes for industries referenced
-     * MSA/FIPS codes for geographic areas
-   - Use `census-discover variables` to find relevant Census variables for demographic context
-   - Map natural language descriptions to technical identifiers
+   - use `pyghtcast discover` to explore the ligthcast api and find relevant data
+     - read the pyghtcast cli documentation: https://github.com/Dallas-College-LMIC/pyghtcast/blob/main/CLI_DOCUMENTATION.md
+   - Use `census-discover` to find relevant Census data
+     - read the documentation at https://github.com/Dallas-College-LMIC/censusdis-cli/
 
 3. **Generate Comprehensive Data Specification**
    Create a structured document with these sections:
