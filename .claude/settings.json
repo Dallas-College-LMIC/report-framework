@@ -2,6 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(just:*)",
+      "Bash(grep:*)",
+      "Bash(jq:*)",
       "mcp__serena__initial_instructions",
       "mcp__serena__find_file",
       "mcp__serena__activate_project",
