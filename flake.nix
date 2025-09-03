@@ -55,98 +55,6 @@
             };
           };
 
-          setupScript = pkgs.writeScriptBin "setup" ''
-            #!${pkgs.bash}/bin/bash
-            set -euo pipefail
-
-            # Initialize project with uv first
-            echo "Initializing project with uv..."
-            uv init
-
-            # Apply ruler configuration to generate CLAUDE.md
-            echo ""
-            echo "Applying ruler configuration..."
-            ${ruler-pkg}/bin/ruler apply
-            echo "✓ Ruler configuration applied"
-
-            # Extract project name from pyproject.toml and add to .serena/project.yml
-            if [ -f pyproject.toml ] && [ -f .serena/project.yml ]; then
-              PROJECT_NAME=$(grep '^name = ' pyproject.toml | sed 's/name = "\(.*\)"/\1/')
-              if [ ! -z "$PROJECT_NAME" ]; then
-                echo "Setting project name in Serena config: $PROJECT_NAME"
-                # Add project_name at the end of the file
-                echo "" >> .serena/project.yml
-                echo "# Project name from uv init" >> .serena/project.yml
-                echo "project_name: $PROJECT_NAME" >> .serena/project.yml
-                echo "✓ Added project name to .serena/project.yml"
-              fi
-            fi
-
-            # Make hook scripts executable
-            echo "Making hook scripts executable..."
-            ${pkgs.findutils}/bin/find .claude/hooks -name "*.sh" -type f -exec chmod +x {} \; 2>/dev/null || true
-            echo "✓ Hook scripts made executable"
-
-            # Add .env to .gitignore if not already present
-            if [ -f .gitignore ]; then
-              if ! grep -q "^\.env$" .gitignore 2>/dev/null; then
-                echo "Adding .env to .gitignore..."
-                echo ".env" >> .gitignore
-                echo "✓ Added .env to .gitignore"
-              else
-                echo "✓ .env already in .gitignore"
-              fi
-            else
-              echo "Creating .gitignore with .env..."
-              echo ".env" > .gitignore
-              echo "✓ Created .gitignore with .env"
-            fi
-
-            # Extract project name from pyproject.toml and add to .serena/project.yml
-            if [ -f pyproject.toml ] && [ -f .serena/project.yml ]; then
-              PROJECT_NAME=$(grep '^name = ' pyproject.toml | sed 's/name = "\(.*\)"/\1/')
-              if [ ! -z "$PROJECT_NAME" ]; then
-                echo "Setting project name in Serena config: $PROJECT_NAME"
-                # Add project_name at the end of the file
-                echo "" >> .serena/project.yml
-                echo "# Project name from uv init" >> .serena/project.yml
-                echo "project_name: $PROJECT_NAME" >> .serena/project.yml
-                echo "✓ Added project name to .serena/project.yml"
-              fi
-            fi
-
-            # Initialize git repository and create initial commit
-            echo ""
-            echo "Initializing git repository and creating initial commit..."
-
-            # Check if git repo already exists
-            if [ ! -d .git ]; then
-              echo "Initializing git repository..."
-              ${pkgs.git}/bin/git init
-              echo "✓ Git repository initialized"
-            else
-              echo "✓ Git repository already exists"
-            fi
-
-            # Stage all files
-            echo "Staging files for initial commit..."
-            ${pkgs.git}/bin/git add .
-
-            # Create initial commit
-            echo "Creating initial commit..."
-            ${pkgs.git}/bin/git commit -m "Initial project setup with uv and nix" || {
-              echo "⚠ No changes to commit (project may already be initialized)"
-            }
-
-            echo ""
-            echo "═══════════════════════════════════════════════════════════"
-            echo "✅ Setup complete! Your Python project is ready."
-            echo "   - Project initialized with uv"
-            echo "   - Ruler configuration applied (CLAUDE.md generated)"
-            echo "   - Git repository initialized with initial commit"
-            echo "   - Pre-commit hooks configured"
-            echo "═══════════════════════════════════════════════════════════"
-          '';
         in
         {
           # Pre-commit hooks configuration
@@ -187,13 +95,6 @@
             };
           };
 
-          apps = {
-            setup = {
-              type = "app";
-              program = "${setupScript}/bin/setup";
-            };
-          };
-
           devShells.default = pkgs.mkShell {
             buildInputs = [
               # Python and package management
@@ -222,15 +123,6 @@
             shellHook = ''
               # Run the pre-commit shellHook first
               ${config.pre-commit.installationScript}
-
-              # Check if this is a fresh template
-              if [ ! -f "pyproject.toml" ]; then
-                echo "═══════════════════════════════════════════════════════════"
-                echo "🚀 Welcome! This is a fresh Python project."
-                echo "   Run 'nix run .#setup' to initialize your project."
-                echo "═══════════════════════════════════════════════════════════"
-                echo ""
-              fi
 
               echo "🐍 Python Development Environment"
               echo "Python: ${python.version}"
