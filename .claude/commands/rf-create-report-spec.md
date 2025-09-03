@@ -39,16 +39,7 @@ When this command is invoked:
    - Use `census-discover variables` to find relevant Census variables for demographic context
    - Map natural language descriptions to technical identifiers
 
-3. **Dataset Selection Logic (Minimal Approach)**
-   Start with ONE primary dataset, add others only if essential:
-   - **Program Evaluation**: EMSI.us.Occupation (core employment metrics only)
-   - **Market Analysis**: EMSI.us.Occupation (focus on wages/growth, not comprehensive industry analysis)
-   - **Workforce Planning**: EMSI.us.Occupation (openings/projections only)
-   - **Industry Analysis**: EMSI.us.Industry (basic trends, not detailed cross-analysis)
-
-   Add secondary datasets (EMSI.us.Staffing, demographics, census) ONLY if the core question cannot be answered with primary data
-
-4. **Generate Comprehensive Data Specification**
+3. **Generate Comprehensive Data Specification**
    Create a structured document with these sections:
 
    ### Executive Summary
