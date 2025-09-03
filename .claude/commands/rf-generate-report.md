@@ -60,6 +60,7 @@ When this command is invoked:
    - **Data Validation**: Include basic quality checks appropriate for the data being collected
    - **Professional Formatting**: Round numeric data appropriately and handle data types correctly
    - **Professional Export**: Use dclmic_export.save_dfs_as_xl() with correct syntax
+   - **CSV Export for Verification**: Export each DataFrame as CSV for Claude to read and verify data quality
 
 5. **Execute Generated Script**
    - Write the script to the same directory as the data specification
@@ -72,9 +73,9 @@ When this command is invoked:
 ```python
 # API Setup with error handling
 try:
-    lc = Lightcast(username=os.getenv('LC_API_USER'), password=os.getenv('LC_API_PASS'))
+    lc = Lightcast(username=os.getenv('LCAPI_USER'), password=os.getenv('LCAPI_PASS'))
 except Exception as e:
-    print("❌ Failed to connect to Lightcast API. Check LC_API_USER and LC_API_PASS environment variables.")
+    print("❌ Failed to connect to Lightcast API. Check LCAPI_USER and LCAPI_PASS environment variables.")
     raise
 
 # Single area query implementation
@@ -151,7 +152,7 @@ def query_demographic_data():
 ```
 
 ### Export Implementation
-Always use dclmic_export for professional Excel output with correct syntax:
+Always use dclmic_export for professional Excel output with correct syntax, and also export CSVs for data verification:
 
 ```python
 def export_results():
@@ -164,12 +165,14 @@ def export_results():
         "Data Dictionary"
     ]
 
+    file_name = f"{report_name}_{datetime.now().strftime('%Y%m%d')}"
+
     # Export using dclmic-export (note: .xlsx extension added automatically)
     try:
         dclmic_export.save_dfs_as_xl(
             list_of_frames=dataframes,
             path="./",  # Directory path (should end with /)
-            file_name=f"{report_name}_{datetime.now().strftime('%Y%m%d')}",  # No .xlsx extension needed
+            file_name=file_name,  # No .xlsx extension needed
             sheet_titles=sheet_titles,  # Correct parameter name
             friendly_names=False  # Important: prevents automatic column renaming
         )
@@ -177,18 +180,31 @@ def export_results():
     except Exception as e:
         print(f"❌ Export failed: {e}")
         raise
+
+    # Export each DataFrame as CSV for Claude verification and debugging
+    try:
+        print("📄 Exporting CSV files for data verification...")
+        for i, (df, sheet_title) in enumerate(zip(dataframes, sheet_titles)):
+            csv_filename = f"{file_name}_{sheet_title.replace(' ', '_').lower()}.csv"
+            df.to_csv(csv_filename, index=False)
+            print(f"  ✅ {csv_filename}")
+        print("✅ CSV export complete - Claude can now read these files to verify data quality")
+    except Exception as e:
+        print(f"⚠️  CSV export failed (Excel still created): {e}")
 ```
 
 ### File Management
 - **Script Location**: Save generated script in same directory as data spec
 - **Script Naming**: Use pattern `generate_{report_name}_report.py`
 - **Output Location**: Place Excel file in same directory as data spec
+- **CSV Files**: Export individual CSV files alongside Excel for Claude verification
 - **Cleanup**: Optionally remove script after successful execution (configurable)
 
 ### Error Handling Requirements
 - **Missing Credentials**: Provide clear guidance on setting LC_API_USER/LC_API_PASS environment variables
 - **API Failures**: Catch and report API connection/query errors with helpful messages
 - **Data Validation**: Check for empty results and unreasonable values
+- **CSV Verification**: Enable Claude to read and verify exported CSV files for debugging
 - **Execution Feedback**: Provide clear progress indicators and success/failure messages
 
 ### Quality Standards
@@ -227,10 +243,10 @@ def main():
     df2 = query_industry_distribution(lc)
 
     # Export results
-    print("Generating Excel report...")
+    print("Generating Excel report and CSV files...")
     export_results([df1, df2])
 
-    print("✅ Report generation complete!")
+    print("✅ Report generation complete! Excel and CSV files created.")
 
 def query_occupation_employment(lc):
     # Implementation based on Query 1 from spec
@@ -250,7 +266,7 @@ if __name__ == "__main__":
 
 ## Integration Notes
 - **Dependencies**: Uses existing project dependencies (pyghtcast, censusdis, dclmic-export, pandas)
-- **Environment**: Assumes LC_API_USER and LC_API_PASS environment variables are set
+- **Environment**: Assumes LCAPI_USER and LCAPI_PASS environment variables are set
 - **File Structure**: Works with existing report folder structure from rf-create-report-spec
 - **Compatibility**: Generated scripts are standalone and can be run independently
 
@@ -258,5 +274,7 @@ if __name__ == "__main__":
 - Script generates without errors
 - Script executes successfully and produces Excel output
 - Excel file contains all data specified in the data spec
+- CSV files are exported for each sheet allowing Claude to verify data quality
 - Output is professional and ready for stakeholder review
 - Process is efficient and user-friendly
+- Data can be easily debugged via CSV inspection if issues arise
