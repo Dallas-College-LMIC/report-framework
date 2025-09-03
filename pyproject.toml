@@ -4,4 +4,14 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "censusdis-cli",
+    "dclmic-export",
+    "pandas>=2.3.2",
+    "pyghtcast",
+]
+
+[tool.uv.sources]
+pyghtcast = { git = "https://github.com/Dallas-College-LMIC/pyghtcast" }
+censusdis-cli = { git = "https://github.com/Dallas-College-LMIC/censusdis-cli" }
+dclmic-export = { git = "https://github.com/Dallas-College-LMIC/dclmic-export" }
