@@ -113,8 +113,7 @@
         "flake-parts": "flake-parts",
         "git-hooks": "git-hooks",
         "nixpkgs": "nixpkgs",
-        "ruler": "ruler",
-        "tdd-guard": "tdd-guard"
+        "ruler": "ruler"
       }
     },
     "ruler": {
@@ -130,22 +129,6 @@
       "original": {
         "owner": "intellectronica",
         "repo": "ruler",
-        "type": "github"
-      }
-    },
-    "tdd-guard": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1756740835,
-        "narHash": "sha256-ag8b1Oo7qNJ9/lxXQCPGQIfxCU9mC0nrk1M6Ei8bS7w=",
-        "owner": "nizos",
-        "repo": "tdd-guard",
-        "rev": "f3bcbe2c964c953fd25330473b748d0ca767abc1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nizos",
-        "repo": "tdd-guard",
         "type": "github"
       }
     }
