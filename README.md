@@ -30,7 +30,7 @@ Use the custom Claude Code command to analyze stakeholder requests and generate 
 
 This command will:
 1. Parse the stakeholder request document
-2. Identify relevant data sources and codes (SOC, NAICS, MSA)
+2. Identify and explore relevant data sources
 3. Generate a comprehensive data specification
 4. Create a structured project folder in `reports/`
 
