@@ -14,21 +14,18 @@ Analyzes stakeholder request documents and generates comprehensive data specific
 ## Behavioral Instructions
 
 **Core Principle: Minimum Viable Specification**
-- Focus ONLY on data needed to answer the core question
+- Focus on data needed to answer the core question
 - Avoid comprehensive analysis unless explicitly requested
 - Start with essential metrics, expand only if justified
-- Prefer single datasets over multiple sources when possible
 
 When this command is invoked:
 
 1. **Parse the Request Document**
    - Read and analyze the stakeholder request file
-   - Extract ONLY essential information:
+   - Extract essential information:
      * The primary decision to be made
-     * Minimum target definition (occupation/industry)
      * Required geographic scope (no more than necessary)
-     * Timeline constraints
-     * Core success criteria ONLY
+     * Core success criteria
 
 2. **Intelligent Code Discovery**
    - use `pyghtcast discover` to explore the ligthcast api and find relevant data
@@ -36,7 +33,7 @@ When this command is invoked:
    - Use `census-discover` to find relevant Census data
      - read the documentation at https://github.com/Dallas-College-LMIC/censusdis-cli/
 
-3. **Generate Comprehensive Data Specification**
+3. **Generate Data Specification**
    Create a structured document with these sections:
 
    ### Executive Summary
@@ -56,15 +53,14 @@ When this command is invoked:
    - **Time Period**: Analysis years and projections
 
    ### Data Collection Queries
-   Generate ONLY queries needed to answer the specific request:
+   Generate queries needed to answer the specific request:
    - Analyze what data is actually required to make the decision
    - Create the minimum number of queries to fulfill the request
    - Each query should directly support the stated objective
-   - Avoid standard templates - tailor to the actual need
 
    For each query, specify:
    - Dataset name
-   - Metrics to collect (only those needed for the decision)
+   - Metrics to collect
    - Constraints (area, occupation, industry filters)
    - Purpose: How this query answers part of the core request
 
@@ -93,33 +89,18 @@ When this command is invoked:
    - Self-employment considerations
    - Gig economy factors
 
-   ### Appendix: Query Code Examples
-   - Python code using pyghtcast
-   - Authentication setup
-   - Constraint building examples
-   - Data retrieval and basic processing
-
-5. **Metric Selection Intelligence**
-   Choose metrics based on what the request actually needs:
-   - Read the request to understand what specific information supports the decision
-   - Select ONLY metrics that directly answer the stakeholder's questions
-   - Avoid comprehensive metric collection - focus on decision-relevant data
-   - If wage analysis isn't mentioned in the request, don't include earnings metrics
-   - If demographic breakdowns aren't requested, stick to total employment figures
-
-6. **Geographic Intelligence**
+4. **Geographic Intelligence**
    - For metro areas: Use MSA codes, suggest peer metro comparisons
    - For states: Include state and national comparisons
    - For local areas: Consider county/ZIP level data availability
-   - Auto-suggest comparison areas based on size/characteristics
 
-7. **Quality Assurance**
+5. **Quality Assurance**
    - Verify all codes exist in current data versions
    - Check geographic level compatibility
    - Ensure metric availability for specified time periods
    - Flag potential data limitations upfront
 
-8. **Output Generation**
+6. **Output Generation**
    - Create a descriptive name for the request based on content analysis (e.g., "personal-training-certificate-evaluation", "healthcare-workforce-analysis")
    - Extract requestor name from the document (look for signatures, contact info, "from" fields)
    - Create folder in `reports/` directory: `{YYYY-MM-DD}_{requestor-name}_{request_name}/`
@@ -128,19 +109,6 @@ When this command is invoked:
    - Structure document with standard sections (executive summary, data sources, queries, etc.)
    - Include working Python code examples
    - Make ready for subsequent report generation phase
-
-## Example Output Structure
-
-The generated specification should include these sections:
-- Executive Summary (objective and approach)
-- Data Sources & Datasets (Lightcast, Census, etc.)
-- Target Definitions (SOC/NAICS/geographic codes)
-- Data Collection Queries (tailored to the specific request)
-- Processing Requirements & Calculations
-- Deliverable Format
-- Timeline
-- Limitations & Considerations
-- Appendix: Query Code Examples (Python using pyghtcast)
 
 ## Error Handling
 - If request file cannot be read, provide clear error message
