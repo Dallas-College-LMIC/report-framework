@@ -34,13 +34,33 @@ This command will:
 3. Generate a comprehensive data specification
 4. Create a structured project folder in `reports/`
 
+### Generating Reports from Specifications
+
+Once you have a data specification, use the automated report generation command:
+
+```
+/rf-generate-report path/to/data_spec.md [--dry-run]
+```
+
+This command will:
+1. Parse the data specification file
+2. Automatically detect required data sources (Lightcast API, Census data)
+3. Generate a purpose-built Python script with proper error handling
+4. Execute the script to collect data and produce professional Excel reports
+5. Export CSV files for data verification and debugging
+
+**Parameters:**
+- `data_spec.md`: Path to the data specification markdown file
+- `--dry-run`: Optional flag to generate the script without executing it
+
 ### Example Workflow
 
 1. **Receive Request**: Place stakeholder request document in the project
-2. **Generate Specification**: Run `/rf:create-report-spec REQUEST.pdf`
+2. **Generate Specification**: Run `/rf-create-report-spec REQUEST.pdf`
 3. **Review Output**: Check generated specification in `reports/YYYY-MM-DD_requestor_topic/`
-4. **Execute Analysis**: Use the generated Python code examples to collect data
-5. **Create Report**: Follow the specification to deliver the required analysis
+4. **Generate Report**: Run `/rf-generate-report reports/YYYY-MM-DD_requestor_topic/data_spec.md`
+5. **Quality Check**: Review generated Excel and CSV files for accuracy
+6. **Deliver**: Provide the professional Excel report to stakeholders
 
 ## Dependencies
 
