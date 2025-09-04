@@ -207,6 +207,8 @@ import dclmic_export
 from datetime import datetime
 from pyghtcast.lightcast import Lightcast
 
+# API Setup
+LC = Lightcast(username=os.getenv('LCAPI_USER'), password=os.getenv('LCAPI_PASS'))
 
 def query_occupation_employment(lc):
     # Implementation based on Query 1 from spec
@@ -222,8 +224,6 @@ def export_results(dataframes):
 
 print("Starting report generation...")
 
-# API Setup
-lc = Lightcast(username=os.getenv('LC_API_USER'), password=os.getenv('LC_API_PASS'))
 
 # Execute queries
 print("Collecting occupation data...")
